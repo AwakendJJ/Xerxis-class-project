@@ -3,23 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlockRSVP</title>
+    <title>Eth Translatathon</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
+        body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #471B23;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #6D333B;
+}
+
+.sidebar {
+    width: 15%;
+    background-color: #592A33;
+    padding: 20px;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #FFF;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.main-content {
+    width: 85%;
+    padding: 20px;
+}
+
+header {
+    border-bottom: 1px solid #833941;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin: 0;
+    color: #E4C1C1;
+}
+
+.date-time, .location {
+    font-size: 16px;
+    color: #F0AFAF;
+}
+
+.event-details {
+    display: flex;
+    gap: 20px;
+}
+
+.event-image img {
+    width: 250px;
+    border-radius: 10px;
+}
+
+.event-info {
+    flex-grow: 1;
+}
+
+.private-event {
+    background-color: #814444;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.private-event span {
+    color: #FFE1E1;
+    font-size: 14px;
+}
+
+.hosted-by {
+    margin-bottom: 20px;
+}
+
+.hosted-by .host-name {
+    display: block;
+    font-size: 18px;
+    color: #FFF;
+    margin-top: 5px;
+}
+
+.attendees {
+    margin-bottom: 20px;
+}
+
+.attendees .avatars img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+#connectWalletButton {
+    background-color: #814444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 300px;
+}
+
+#connectWalletButton:hover {
+    background-color: #5f3333;
+}
+
+.thank-you h2 {
+    color: #FFF;
+    font-size: 20px;
+    margin: 0;
+}
+
+.thank-you p {
+    margin: 5px 0;
+}
+
+footer {
+    border-top: 1px solid #833941;
+    padding-top: 10px;
+    margin-top: 20px;
+    color: #FFF;
+    font-size: 16px;
+}
 
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="event-info">
-            <h1 id="eventName">Event Name</h1>
-            <p id="eventDate">Event Date</p>
-            <p>Location: <span>location</span></p>
+        <div class="sidebar">
+            <nav>
+                <a href="#">Events</a>
+                <a href="#">Calendars</a>
+                <a href="#">Discover</a>
+            </nav>
         </div>
-        <button class="rsvp-button" onclick="rsvp()">RSVP</button>
-        <div class="attendees-list">
-            <h2>Attendees</h2>
-            <ul id="attendees"></ul>
+        <div class="main-content">
+            <header>
+                <h1>Eth Translatathon</h1>
+                <div class="date-time">
+                    <span>Sunday, August 18</span>
+                    <span>9:30 AM - 4:30 PM</span>
+                </div>
+                <div class="location">
+                    <span>Magnolia Hotel & Conference Center | Bole Atlas | Addis Ababa</span>
+                    <button id="connectWalletButton">Connect Wallet</button>
+                </div>
+                
+            </header>
+            <div class="event-details">
+                <div class="event-image">
+                    <img src="/Xerxis-class-project/1eca3c58-1987-4bcb-b564-7c1d59317e32.avif" alt="Eth Translatathon">
+                </div>
+                <div class="event-info">
+                    <div class="private-event">
+                        <span>Private Event</span>
+                        
+
+                    </div>
+                    <div class="hosted-by">
+                        <span>Hosted By</span>
+                        <span class="host-name">Mearaf</span>
+                    </div>
+                    <div class="attendees">
+                        <span>25 Going</span>
+                        <div class="avatars">
+                            <!-- Add more avatars as needed -->
+                            <img src="user-circle-regular-24.png" alt="Avatar 1">
+                            <img src="user-circle-regular-24.png" alt="Avatar 2">
+                            <img src="user-circle-regular-24.png" alt="Avatar 3">
+                        </div>
+                    </div>
+                    <div class="thank-you">
+                        <h2>Thank You for Joining</h2>
+                        <p>Ticket: Standard</p>
+                        <p>We hope you enjoyed the event!</p>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <p>Join us at the Ethereum Translatathon kickoff event in Addis Ababa! 🐟 🏆</p>
+            </footer>
         </div>
     </div>
+    <script>
+        document.getElementById('connectWalletButton').addEventListener('click', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            document.getElementById('connectWalletButton').textContent = accounts[0];
+        } catch (error) {
+            console.error("User denied account access");
+        }
+    } else {
+        alert('MetaMask is not installed!');
+    }
+});
+
+    </script>
 </body>
 </html>
+
